@@ -5,8 +5,11 @@ import tldextract
 with open("banner.txt","r") as banner:
 	print(banner.read())
 
-site = input("Enter site name: ")
-keywords = "site:{} +filetype:TXT +inurl:\"robots.txt\"".format(site)
+site = input("robots of (leave blank for all results): ")
+if site != "":
+	keywords = "site:{} +filetype:TXT +inurl:\"robots.txt\"".format(site)
+else:
+	keywords = "filetype:TXT +inurl:\"robots.txt\""
 results = DDGS().text(keywords)
 dirs=[]
 for result in results:
