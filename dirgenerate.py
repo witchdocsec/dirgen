@@ -1,11 +1,13 @@
 import requests
-from duckduckgo_search import ddg
+from duckduckgo_search import DDGS
 import tldextract
 
 with open("banner.txt","r") as banner:
 	print(banner.read())
-keywords = "filetype:TXT +inurl:\"robots.txt\""
-results = ddg(keywords, max_results=250)
+
+site = input("Enter site name: ")
+keywords = "site:{} +filetype:TXT +inurl:\"robots.txt\"".format(site)
+results = DDGS().text(keywords)
 dirs=[]
 for result in results:
 	url=result["href"]
@@ -23,6 +25,7 @@ for result in results:
 						with open("dirlist.txt","a") as mylist:
 							mylist.write(entry+"\n")
 						print("added entry: "+entry)
+						
 	except:
 		pass
 print("done")
